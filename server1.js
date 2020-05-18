@@ -43,11 +43,24 @@ const rf = promisify(readFile)
 // })
 
 const server = http.createServer((req, res) => {
-  rf('index.html', 'utf8')
-    .then(html => {
-      res.end(html)
-    })
-    .catch(err => console.log(err))
+
+  switch (req.url) {
+    case '/':
+      rf('about.html', 'utf8')
+        .then(html => res.end(html))
+        .catch(err => console.log(err))
+      break
+    case '/portfolio':
+      rf('portfolio.html', 'utf8')
+        .then(html => res.end(html))
+        .catch(err => console.log(err))
+      break
+    case '/contact':
+      rf('contact.html', 'utf8')
+        .then(html => res.end(html))
+        .catch(err => console.log(err))
+      break
+  }
 })
 
 server.listen(3000, () => {
